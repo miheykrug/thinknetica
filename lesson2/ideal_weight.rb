@@ -6,7 +6,7 @@
 
   ideal_weight = height - 110
 if ideal_weight >= 0
-  print "#{name}, Ваш идеальный вес - #{ideal_weight}"
+  puts "#{name}, Ваш идеальный вес - #{ideal_weight}"
 else
-  print "Ваш вес уже оптимальный"
+  puts "Ваш вес уже оптимальный"
 end
