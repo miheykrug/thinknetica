@@ -1,10 +1,6 @@
 fib = [1, 1]
-j = 1
-sum = 1
-while sum < 100
-  fib[j] = sum
-  j += 1
-  sum = fib[j-1] + fib[j-2]
+while (next_element = fib[-1] + fib[-2]) < 100
+  fib << next_element
 end
 
 puts fib.to_s

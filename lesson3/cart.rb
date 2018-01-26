@@ -18,15 +18,8 @@ end
 orpder_price = 0
 
 cart.each do |name, prod|
-  prod_price = 1
-  
-  prod.each do |k, v|
-    prod_price *= v
-  end
-  
-  puts "Общая стоимость товара #{name}: #{prod_price}"
-  
-  orpder_price += prod_price
+  puts "Общая стоимость товара #{name}: #{prod.values.reduce(1, :*)}"
+  orpder_price += prod.values.reduce(1, :*)
 end
 
 puts "Общая сумма всех покупок: #{orpder_price}"
