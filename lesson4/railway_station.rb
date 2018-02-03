@@ -103,14 +103,14 @@ class Train
   def add_route(route)
     @current_station_index = 0
     self.route = route
-    route.stations[@current_station_index].take_train(self)
+    current_station.take_train(self)
   end
 
   def to_next_station
     if @current_station_index < (route.stations.length - 1)
-      route.stations[@current_station_index].train_departure(self)
+      current_station.train_departure(self)
       @current_station_index += 1
-      route.stations[@current_station_index].take_train(self)
+      current_station.take_train(self)
     else
       puts "Это конечная станция. Поезд дальше не идет"
     end
@@ -120,9 +120,9 @@ class Train
     if @current_station_index == 0
       puts "Это начальная станция. Возвращаться некуда!"
     else
-      route.stations[@current_station_index].train_departure(self)
+      current_station.train_departure(self)
       @current_station_index -= 1
-      route.stations[@current_station_index].take_train(self)
+      current_station.take_train(self)
     end
   end
 
