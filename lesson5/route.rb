@@ -1,5 +1,4 @@
 class Route
-
   attr_accessor :stations
 
   def initialize(first_station, end_station)
@@ -26,5 +25,4 @@ class Route
     puts "На данном маршруте следующие остановки:"
     stations.each { |station| puts station.name }
   end
-
 end

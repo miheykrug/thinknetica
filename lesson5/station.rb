@@ -1,5 +1,4 @@
 class Station
-
   attr_reader :name, :trains
 
   def initialize(name)
@@ -28,5 +27,4 @@ class Station
       puts "Такого поезда нет на станции #{name}"
     end
   end
-
 end

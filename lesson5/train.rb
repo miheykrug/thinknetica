@@ -1,5 +1,4 @@
 class Train
-
   attr_reader :number, :wagons, :route, :speed
 
   def initialize(number)
@@ -7,7 +6,6 @@ class Train
     @wagons = []
     @speed = 0
   end
-
 
   def increase_speed(value)
     self.speed += value
@@ -41,7 +39,6 @@ class Train
       wagons.pop
     end
   end
-
 
   def add_route(route)
     @current_station_index = 0
