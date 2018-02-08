@@ -8,20 +8,43 @@ class Menu
                  "3 - Отцепить вагон от поезда", "4 - Переместить поезд на следующую станцию",
                  "5 - Переместить поезд на предыдущую станцию", "b - Вернуться назад"]
 
-  attr_accessor :all_stations, :all_trains, :all_routes, :current_route, :current_train # Эти методы не в private,  т.к. используюся для начального заполнения массивов в main.rb
+  def initialize
+    @all_stations = []
+    @all_trains = []
+    @all_routes = []
+  end
 
   def run
+    seed_routes
+    seed_stations
+    seed_trains
+
     main_menu
   end
 
   private
 
-  attr_reader
+  attr_accessor :all_stations, :all_trains, :all_routes, :current_route, :current_train
 
-  def initialize
-    @all_stations = []
-    @all_trains = []
-    @all_routes = []
+  def seed_stations
+    station3 = Station.new("Volozhin")
+    station4 = Station.new("Smolensk")
+
+    self.all_stations += [station3, station4]
+  end
+
+  def seed_trains
+    train1 = CargoTrain.new(1)
+    train2 = PassengerTrain.new(2)
+    self.all_trains = [train1, train2]
+  end
+
+  def seed_routes
+    station1 = Station.new("Minsk")
+    station2 = Station.new("Moskow")
+    self.all_stations += [station1, station2]
+    route1 = Route.new(station1, station2)
+    self.all_routes = [route1]
   end
 
   def new_station
@@ -109,7 +132,7 @@ class Menu
   def route_choice
     loop do
       all_routes_list
-      puts "Выберите из списка маршрут, который хотите назначить выбранному ранее поезду"
+      puts "Выберите из списка маршрут, который хотите наз`начить выбранному ранее поезду"
       route_index = gets.chomp.to_i - 1
       route = all_routes[route_index]
       return route if !route.nil?
