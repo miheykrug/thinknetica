@@ -4,19 +4,21 @@ class Train
 
   attr_reader :number, :wagons, :route, :speed
 
-  def self.find(number)
-    train_index = all.index { |train| train.number == number }
-    all[train_index] if !train_index.nil?
+  class << self
+    attr_accessor :all
+
+    def find(number)
+      all[number]
+    end
   end
-
-
 
   def initialize(number)
     @number = number
     @wagons = []
     @speed = 0
     register_instance
-    add_to_all
+    self.class.all ||= {}
+    self.class.all[self.number] = self
   end
 
   def increase_speed(value)

@@ -5,16 +5,11 @@ module InstanceCounter
   end
 
   module ClassMethods
-    attr_accessor :instances, :all
+    attr_accessor :instances
   end
 
   module InstanceMethods
     protected
-
-    def add_to_all
-      self.class.all ||= []
-      self.class.all << self
-    end
 
     def register_instance
       self.class.instances ||= 0

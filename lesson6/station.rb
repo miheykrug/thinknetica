@@ -3,10 +3,15 @@ class Station
 
   attr_reader :name, :trains
 
+  class << self
+    attr_accessor :all
+  end
+
   def initialize(name)
     @name = name
     @trains = []
-    add_to_all
+    self.class.all ||= []
+    self.class.all << self
     register_instance
   end
 
