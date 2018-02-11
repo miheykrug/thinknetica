@@ -10,9 +10,8 @@ class Station
   def initialize(name)
     @name = name
     @trains = []
-    self.class.all ||= []
-    self.class.all << self
     register_instance
+    add_to_all
   end
 
   def take_train(train)
@@ -36,4 +35,12 @@ class Station
       puts "Такого поезда нет на станции #{name}"
     end
   end
+
+  private
+
+    def add_to_all
+      self.class.all ||= []
+      self.class.all << self
+    end
+
 end

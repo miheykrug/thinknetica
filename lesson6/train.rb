@@ -17,9 +17,9 @@ class Train
     @wagons = []
     @speed = 0
     register_instance
-    self.class.all ||= {}
-    self.class.all[self.number] = self
+    add_to_all
   end
+
 
   def increase_speed(value)
     self.speed += value
@@ -95,4 +95,10 @@ class Train
   protected
 
     attr_writer :route, :speed
+
+    def add_to_all
+      self.class.all ||= {}
+      self.class.all[self.number] = self
+    end
+
 end
