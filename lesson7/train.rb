@@ -18,14 +18,17 @@ class Train
     @number = number
     @wagons = []
     @speed = 0
+    validate!
     register_instance
     add_to_all
-    validate!
   end
 
   def valid?
     validate!
+  rescue
+    false
   end
+
   def increase_speed(value)
     self.speed += value
   end
@@ -99,18 +102,18 @@ class Train
 
   protected
 
-    attr_writer :route, :speed
+  attr_writer :route, :speed
 
-    def add_to_all
-      self.class.all ||= {}
-      self.class.all[self.number] = self
-    end
+  def add_to_all
+    self.class.all ||= {}
+    self.class.all[self.number] = self
+  end
 
-    def validate!
-      raise "Number can't be nil" if number.nil?
-      raise "Number should be at least 6 symbols" if number.length < 5
-      raise "Number has invalid format" if number !~ NUMBER_FORMAT
-      true
-    end
+  def validate!
+    raise "Number can't be nil" if number.nil?
+    raise "Number should be at least 5 symbols" if number.length < 5
+    raise "Number has invalid format" if number !~ NUMBER_FORMAT
+    true
+  end
 
 end

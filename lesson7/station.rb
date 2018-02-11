@@ -1,7 +1,8 @@
 class Station
   include InstanceCounter
 
-  attr_reader :name, :trains
+  attr_reader :trains
+  attr_accessor :name
 
   class << self
     attr_accessor :all
@@ -10,13 +11,15 @@ class Station
   def initialize(name)
     @name = name
     @trains = []
+    validate!
     register_instance
     add_to_all
-    validate!
   end
 
   def valid?
     validate!
+  rescue
+    false
   end
 
   def take_train(train)
@@ -43,14 +46,14 @@ class Station
 
   private
 
-    def add_to_all
-      self.class.all ||= []
-      self.class.all << self
-    end
+  def add_to_all
+    self.class.all ||= []
+    self.class.all << self
+  end
 
-    def validate!
-      raise "Name of station can't be nil" if name.nil?
-      raise "Name should be at least 3 symbols" if name.length < 3
-      true
-    end
+  def validate!
+    raise "Name of station can't be nil" if name.nil?
+    raise "Name should be at least 3 symbols" if name.length < 3
+    true
+  end
 end
