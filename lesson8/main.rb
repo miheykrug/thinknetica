@@ -33,6 +33,15 @@ menu.run
 # pw2 = PassengerWagon.new(10)
 # pw3 = PassengerWagon.new(12)
 
+# cw1.occupy_space(90)
+# puts cw1.free_space
+# puts cw1.occupied_space
+# cw1.occupy_space(20)
+
+# pw1.occupy_space
+# puts pw1.free_space
+# puts pw1.occupied_space
+
 # ct1.add_wagon(cw1)
 # ct1.add_wagon(cw2)
 # ct1.add_wagon(cw3)

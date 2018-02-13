@@ -1,27 +1,10 @@
 class PassengerWagon < Wagon
-  attr_reader  :occupied_seats
-
-  def initialize(seats)
-    @seats = seats
-    @occupied_seats = 0
+  def initialize(space)
     @type = "пассажитрский"
-    super()
+    super
   end
 
-  def take_seat
-    if free_seats > 0
-      self.occupied_seats += 1
-    else
-      puts "Все места заняты"
-    end
+  def occupy_space(loading = 1)
+    super
   end
-
-  def free_seats
-    seats - occupied_seats
-  end
-
-  private
-
-  attr_reader :seats
-  attr_writer :occupied_seats
 end

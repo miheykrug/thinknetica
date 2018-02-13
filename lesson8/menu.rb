@@ -91,19 +91,19 @@ class Menu
   end
 
   def trains_list
-      all_trains.each { |number, train| puts "Поезд № #{train.number}, тип: #{train.type}, количество вагонов: #{train.wagons.length}" }
+    all_trains.each { |number, train| puts "Поезд № #{train.number}, тип: #{train.type}, количество вагонов: #{train.wagons.length}" }
   end
 
   def add_route_using_menu
-      current_train.add_route(route_choice)
+    current_train.add_route(route_choice)
   end
 
   def train_wagons_list(train)
     train.each_wagon do |number, wagon|
       if wagon.class == PassengerWagon
-        inf = "кол-во свободных мест: #{wagon.free_seats}, кол-во занятых мест: #{wagon.occupied_seats}"
+        inf = "кол-во свободных мест: #{wagon.free_space}, кол-во занятых мест: #{wagon.occupied_space}"
       elsif wagon.class == CargoWagon
-        inf = "свободный объем: #{wagon.free_volume}, занятый объем: #{wagon.filled_volume}"
+        inf = "свободный объем: #{wagon.free_space}, занятый объем: #{wagon.occupied_space}"
       end
       puts "№ #{number}, Тип: #{wagon.type}, " + inf
     end
@@ -218,11 +218,11 @@ class Menu
     wagon = wagon_choice
     puts "Какой объем груза?"
     volume = gets.chomp.to_i
-    wagon.fill_volume(volume)
+    wagon.occupy_space(volume)
   end
 
   def take_seat_using_menu
-    wagon_choice.take_seat
+    wagon_choice.occupy_space
   end
 
   def main_menu
