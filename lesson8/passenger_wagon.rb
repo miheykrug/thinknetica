@@ -4,7 +4,7 @@ class PassengerWagon < Wagon
     super
   end
 
-  def occupy_space(loading = 1)
-    super
+  def occupy_space
+    super 1
   end
 end
