@@ -5,12 +5,12 @@ module RoutesMenu
     'b - Вернуться назад'
   ].freeze
 
+  def routes_menu_methods
+    { '1' => :add_station_using_menu, '2' => :remove_station_using_menu }
+  end
+
   def routes_menu
     current_route_choice
-    routes_menu = {
-      '1' => proc { add_station_using_menu },
-      '2' => proc { remove_station_using_menu }
-    }
 
     loop do
       ROUTES_MENU_PUTS.each { |item| puts item }
@@ -19,7 +19,7 @@ module RoutesMenu
 
       break if menu_index == 'b'
 
-      routes_menu[menu_index].call
+      send routes_menu_methods[menu_index]
     end
   end
 

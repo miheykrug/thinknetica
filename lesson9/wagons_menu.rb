@@ -33,9 +33,11 @@ module WagonsMenu
         PassengerTrain => 'Введите номер вагона, в котором нужно занять место',
         CargoTrain => 'Введите номер вагона, в который нужно загрузить груз'
       }
+      puts 'b - Вернуться назад'
       puts msg[current_train.class]
-      wagon_number = gets.chomp.to_i
-      wagon = current_train.wagons[wagon_number]
+      wagon_number = gets.chomp
+      break if wagon_number == 'b'
+      wagon = current_train.wagons[wagon_number.to_i]
       return wagon unless wagon.nil?
     end
   end
@@ -48,6 +50,6 @@ module WagonsMenu
   end
 
   def take_seat_using_menu
-    wagon_choice.occupy_space
+    wagon_choice.occupy_space unless wagon_choice.nil?
   end
 end

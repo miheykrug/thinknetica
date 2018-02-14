@@ -23,21 +23,18 @@ class Menu
     main_menu
   end
 
-  def main_menu
-    main_menu = {
-      '1' => proc { new_station }, '2' => proc { new_train },
-      '3' => proc { new_route }, '4' => proc { routes_menu },
-      '5' => proc { trains_menu },
-      '6' => proc { trains_on_stations_list },
-      '7' => proc { trains_list },
-      '8' => proc { all_routes_list }
-    }
+  def main_menu_methods
+    { '1' => :new_station, '2' => :new_train, '3' => :new_route,
+      '4' => :routes_menu, '5' => :trains_menu, '6' => :trains_on_stations_list,
+      '7' => :trains_list, '8' => :all_routes_list }
+  end
 
+  def main_menu
     loop do
       MAIN_MENU_PUTS.each { |item| puts item }
       menu = gets.chomp
       break if menu == 'q'
-      main_menu[menu].call
+      send main_menu_methods[menu]
     end
   end
 end

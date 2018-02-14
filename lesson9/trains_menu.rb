@@ -7,29 +7,46 @@ module TrainsMenu
     'b - Вернуться назад'
   ].freeze
 
+  def trains_menu_methods
+    { '1' => :add_route_using_menu,
+      '2' => :add_wagon_to_current_train,
+      '3' => :remove_wagon_from_current_train,
+      '4' => :current_train_to_next_station,
+      '5' => :current_train_to_previous_station,
+      '6' => :wagons_menu }
+  end
+
   def trains_menu
     current_train_choice
-    trains_menu = {
-      '1' => proc { add_route_using_menu },
-      '2' => proc { current_train.add_wagon(new_wagon) },
-      '3' => proc { current_train.remove_wagon },
-      '4' => proc { current_train.to_next_station },
-      '5' => proc { current_train.to_previous_station },
-      '6' => proc { wagons_menu }
-    }
 
     loop do
       TRAINS_MENU_PUTS.each { |item| puts item }
 
       menu_index = gets.chomp
       break if menu_index == 'b'
-      trains_menu[menu_index].call
+      send trains_menu_methods[menu_index]
     end
   end
 
   def seed_trains
     CargoTrain.new('qew-12')
     PassengerTrain.new('qqw-11')
+  end
+
+  def add_wagon_to_current_train
+    current_train.add_wagon(new_wagon)
+  end
+
+  def remove_wagon_from_current_train
+    current_train.remove_wagon
+  end
+
+  def current_train_to_next_station
+    current_train.to_next_station unless current_train.route.nil?
+  end
+
+  def current_train_to_previous_station
+    current_train.to_previous_station unless current_train.route.nil?
   end
 
   def new_train
@@ -74,13 +91,11 @@ module TrainsMenu
   def train_wagons_list(train)
     train.each_wagon do |number, wagon|
       if wagon.class == PassengerWagon
-        inf = "кол-во свободных мест: #{wagon.free_space}, \
-               кол-во занятых мест: #{wagon.occupied_space}"
+        inf = "кол-во свободных мест: #{wagon.free_space}, кол-во занятых мест: #{wagon.occupied_space}"
       elsif wagon.class == CargoWagon
-        inf = "свободный объем: #{wagon.free_space}, \
-               занятый объем: #{wagon.occupied_space}"
+        inf = "свободный объем: #{wagon.free_space}, занятый объем: #{wagon.occupied_space}"
       end
-      puts "№ #{number}, Тип: #{wagon.type}, " + inf
+      puts "№ #{number}, Тип: #{wagon.type}, #{inf}"
     end
   end
 
