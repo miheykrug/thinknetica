@@ -24,7 +24,8 @@ module TrainsMenu
 
       menu_index = gets.chomp
       break if menu_index == 'b'
-      send trains_menu_methods[menu_index]
+      trains_method = trains_menu_methods[menu_index]
+      send trains_method unless trains_method.nil?
     end
   end
 
@@ -38,7 +39,8 @@ module TrainsMenu
   end
 
   def remove_wagon_from_current_train
-    current_train.remove_wagon
+    train_wagons_list(current_train)
+    current_train.remove_wagon(wagon_choice)
   end
 
   def current_train_to_next_station
@@ -91,11 +93,13 @@ module TrainsMenu
   def train_wagons_list(train)
     train.each_wagon do |number, wagon|
       if wagon.class == PassengerWagon
-        inf = "кол-во свободных мест: #{wagon.free_space}, кол-во занятых мест: #{wagon.occupied_space}"
+        inf1 = "кол-во свободных мест: #{wagon.free_space}"
+        inf2 = "кол-во занятых мест: #{wagon.occupied_space}"
       elsif wagon.class == CargoWagon
-        inf = "свободный объем: #{wagon.free_space}, занятый объем: #{wagon.occupied_space}"
+        inf1 = "свободный объем: #{wagon.free_space}"
+        inf2 = "занятый объем: #{wagon.occupied_space}"
       end
-      puts "№ #{number}, Тип: #{wagon.type}, #{inf}"
+      puts "№ #{number}, Тип: #{wagon.type}, #{inf1}, #{inf2}"
     end
   end
 

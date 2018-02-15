@@ -45,14 +45,18 @@ class Route
   def validate!
     raise "First and end stations can't be nil" if stations.any?(&:nil?)
 
-    if stations.any? { |station| station.class != Station }
-      raise 'First and end stations must be Station'
-    end
+    raise 'First and end stations must be Station' unless stations_given?
 
-    if stations.first == stations.last
-      raise "First and end stations can't be equal"
-    end
+    raise "First and end stations can't be equal" if staitions_equal?
 
     true
+  end
+
+  def stations_given?
+    stations.any? { |station| station.class == Station }
+  end
+
+  def staitions_equal?
+    stations.first == stations.last
   end
 end

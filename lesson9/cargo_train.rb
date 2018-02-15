@@ -5,9 +5,7 @@ class CargoTrain < Train
   end
 
   def add_wagon(wagon)
-    if wagon.class != CargoWagon
-      return puts 'К грузовому поезду можно прицепить только грузовые вагоны'
-    end
-    super
+    return super if wagon.instance_of? CargoWagon
+    puts 'К грузовому поезду можно прицепить только грузовые вагоны'
   end
 end

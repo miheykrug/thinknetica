@@ -18,8 +18,8 @@ module RoutesMenu
       menu_index = gets.chomp
 
       break if menu_index == 'b'
-
-      send routes_menu_methods[menu_index]
+      routes_method = routes_menu_methods[menu_index]
+      send routes_method unless routes_method.nil?
     end
   end
 
@@ -63,8 +63,8 @@ module RoutesMenu
 
   def remove_station_using_menu
     stations_list(current_route.stations)
-    print 'Выберите из списка станцию, которую хотите удалить'
-    puts ' (начальную и конечную станции удалять нельзя)'
+    puts 'Выберите из списка станцию, которую хотите удалить'
+    puts '(начальную и конечную станции удалять нельзя)'
     station_index = gets.chomp.to_i - 1
     station = current_route.stations[station_index]
     current_route.remove_station(station)

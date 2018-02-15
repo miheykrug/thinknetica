@@ -34,7 +34,8 @@ class Menu
       MAIN_MENU_PUTS.each { |item| puts item }
       menu = gets.chomp
       break if menu == 'q'
-      send main_menu_methods[menu]
+      menu_method = main_menu_methods[menu]
+      send menu_method unless menu_method.nil?
     end
   end
 end

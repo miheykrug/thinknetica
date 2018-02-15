@@ -60,13 +60,13 @@ class Train
     end
   end
 
-  def remove_wagon
+  def remove_wagon(wagon)
     if speed != 0
       puts 'Нельзя отцепить вагон во время движения поезда'
     elsif wagons.empty?
       puts 'Не осталось вагонов'
     else
-      wagons.pop
+      wagons.delete(wagon.number) unless wagon.nil?
     end
   end
 
