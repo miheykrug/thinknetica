@@ -17,7 +17,8 @@ module Validation
   module InstanceMethods
     def validate!
       self.class.attr_validations.each do |attribute, validations|
-        validations.each { |meth, arg| send(meth, attribute, arg) }
+        attribute_val = instance_variable_get("@#{attribute}".to_sym)
+        validations.each { |meth, arg| send(meth, attribute, attribute_val,arg) }
       end
       true
     end
@@ -30,23 +31,19 @@ module Validation
 
     protected
 
-    def presence(attribute, arg)
-      attribute_val = instance_variable_get("@#{attribute}".to_sym)
+    def presence(attribute, attribute_val, arg)
       raise "#{attribute} can't be nil" if arg && attribute_val.nil?
     end
 
-    def format(attribute, pattern)
-      attribute_val = instance_variable_get("@#{attribute}".to_sym)
+    def format(attribute, attribute_val, pattern)
       raise "#{attribute} has invalid format" if attribute_val !~ pattern
     end
 
-    def type(attribute, true_class)
-      attribute_val = instance_variable_get("@#{attribute}".to_sym)
+    def type(attribute, attribute_val, true_class)
       raise "#{attribute} is not #{true_class} class" unless attribute_val.instance_of? true_class
     end
 
-    def length(attribute, num)
-      attribute_val = instance_variable_get("@#{attribute}".to_sym)
+    def length(attribute, attribute_val, num)
       raise "#{attribute} should be at least #{num} symbols" if attribute_val.length < num
     end
   end
