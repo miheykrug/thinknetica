@@ -1,8 +1,10 @@
 class Wagon
   include Manufacturer
   include Validation
+  include Acessors
 
   attr_reader :number, :type, :occupied_space, :space
+  strong_attr_accessor :train, Train
   validate :space, :presence, true
 
   @@number = 0

@@ -6,8 +6,8 @@ class Menu
 
   MAIN_MENU_PUTS = [
     'Выберите действие:', '1 - Создать станцию', '2 - Создать поезд',
-    '3 - Создать маршрут', '4 - Маршруты', '5 - Поезда', '6 - Список станций',
-    '7 - Список поездов', '8 - Список маршрутов',
+    '3 - Создать маршрут', '4 - Сефнции', '5 - Маршруты', '6 - Поезда', '7 - Список станций',
+    '8 - Список поездов', '9 - Список маршрутов',
     'q - Выйти из программы'
   ].freeze
 
@@ -24,9 +24,9 @@ class Menu
   end
 
   def main_menu_methods
-    { '1' => :new_station, '2' => :new_train, '3' => :new_route,
-      '4' => :routes_menu, '5' => :trains_menu, '6' => :trains_on_stations_list,
-      '7' => :trains_list, '8' => :all_routes_list }
+    { '1' => :new_station, '2' => :new_train, '3' => :new_route, '4' => :stations_menu,
+      '5' => :routes_menu, '6' => :trains_menu, '7' => :trains_on_stations_list,
+      '8' => :trains_list, '9' => :all_routes_list }
   end
 
   def main_menu

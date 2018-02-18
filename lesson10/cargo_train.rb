@@ -1,4 +1,6 @@
 class CargoTrain < Train
+  attr_accessor_with_history :route
+
   def initialize(number)
     @type = 'грузовой'
     super

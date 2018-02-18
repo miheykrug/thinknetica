@@ -5,20 +5,23 @@ module Validation
   end
 
   module ClassMethods
-    def validate(attribute, validation, *arg)
-      var_attr_validations = "@#{attribute}_validations".to_sym
-      attr_validations = instance_variable_get(var_attr_validations)
-      attr_validations ||= {}
-      attr_validations[validation] = arg.first
-      instance_variable_set(var_attr_validations, attr_validations)
-      define_method(:validate!) do
-        attr_validations.each { |meth, arg| self.send(meth, attribute, arg) }
-        true
-      end
+    attr_accessor :attr_validations
+
+    def validate(attribute, validation, arg)
+      self.attr_validations ||= {}
+      attr_validations[attribute] ||= {}
+      attr_validations[attribute].store(validation, arg)
     end
   end
 
   module InstanceMethods
+    def validate!
+      self.class.attr_validations.each do |attribute, validations|
+        validations.each { |meth, arg| send(meth, attribute, arg) }
+      end
+      true
+    end
+
     def valid?
       validate!
     rescue StandardError
@@ -46,8 +49,5 @@ module Validation
       attribute_val = instance_variable_get("@#{attribute}".to_sym)
       raise "#{attribute} should be at least #{num} symbols" if attribute_val.length < num
     end
-
   end
-
-
 end

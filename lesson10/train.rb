@@ -2,15 +2,16 @@ class Train
   include Manufacturer
   include InstanceCounter
   include Validation
+  include Acessors
 
   NUMBER_FORMAT = /^[\da-z]{3}-?[\da-z]{2}$/i
 
-  attr_reader :number, :wagons, :route, :speed, :type
+  attr_reader :number, :wagons, :speed, :type
+  attr_accessor_with_history :route
 
   validate :number, :presence, true
   validate :number, :format, NUMBER_FORMAT
   validate :number, :length, 5
-
 
   class << self
     attr_accessor :all
@@ -19,7 +20,6 @@ class Train
       all[number]
     end
   end
-
 
   def initialize(number)
     @number = number
@@ -71,6 +71,7 @@ class Train
       puts 'Этот вагон уже прицеплен'
     else
       wagons[wagon.number] = wagon
+      wagon.train = self
     end
   end
 
@@ -130,5 +131,4 @@ class Train
     self.class.all ||= {}
     self.class.all[number] = self
   end
-
 end

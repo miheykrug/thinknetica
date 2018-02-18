@@ -1,4 +1,6 @@
 class PassengerTrain < Train
+  attr_accessor_with_history :route
+
   def initialize(number)
     @type = 'пассажитрский'
     super

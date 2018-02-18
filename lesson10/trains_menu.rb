@@ -4,7 +4,7 @@ module TrainsMenu
     '2 - Добавить вагон к поезду', '3 - Отцепить вагон от поезда',
     '4 - Переместить поезд на следующую станцию',
     '5 - Переместить поезд на предыдущую станцию', '6 - Вагоны поезда',
-    'b - Вернуться назад'
+    '7 - История маршрутов поезда', 'b - Вернуться назад'
   ].freeze
 
   def trains_menu_methods
@@ -13,7 +13,8 @@ module TrainsMenu
       '3' => :remove_wagon_from_current_train,
       '4' => :current_train_to_next_station,
       '5' => :current_train_to_previous_station,
-      '6' => :wagons_menu }
+      '6' => :wagons_menu,
+      '7' => :train_routes_history }
   end
 
   def trains_menu
@@ -113,6 +114,11 @@ module TrainsMenu
       self.current_train = all_trains[current_train_number]
       break unless current_train.nil?
     end
+  end
+
+  def train_routes_history
+    puts 'История маршрутов'
+    puts current_train.route_history
   end
 
   protected
